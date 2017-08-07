@@ -1,4 +1,6 @@
 const express = require('express');
+const qs = require('qs');
+const assert = require('assert');
 const routes = express.Router();
 
 const Collection = require('../models/collection');
@@ -9,6 +11,8 @@ routes.get('/', (req, res) => {
   Collection.find()
 
     .then(collections => res.render('listCollections', { collections: collections }))
+    .then(() => console.log(req.body))
+
 
     .catch(err => res.send('there was an error :('));
 });
@@ -26,11 +30,13 @@ routes.post('/saveCollection', (req, res) => {
   if (req.body.id) {
       Collection.findByIdAndUpdate(req.body.id, req.body, { upsert: true })
 
+      .then(() => console.log(req.body))
       .then(() => res.redirect('/'))
     } else {
       new Collection(req.body)
         .save()
         // then redirect to the homepage
+        .then(() => console.log(req.body))
         .then(() => res.redirect('/'))
         // catch validation errors
         .catch(err => {
@@ -42,17 +48,6 @@ routes.post('/saveCollection', (req, res) => {
         });
     }
 
-
-  // Collection.findByIdAndUpdate(req.body.id, req.body, { upsert: true })
-  //   .then(() => res.redirect('/'))
-  //
-  //   .catch(err => {
-  //     console.log(err);
-  //     res.render('collectionForm', {
-  //       errors: err.errors,
-  //       collection: req.body
-  //     });
-  //   });
 });
 
 routes.get('/deleteCollection', (req, res) => {
@@ -63,3 +58,10 @@ routes.get('/deleteCollection', (req, res) => {
 });
 
 module.exports = routes;
+
+
+
+// mongoimport --db collectionManager --collection collections --out collectionData.json
+//
+//
+// mongoexport --db collectionManager --collection collections --out collectionData.json

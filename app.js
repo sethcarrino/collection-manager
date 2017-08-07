@@ -1,6 +1,8 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser')
+const qs = require('qs');
+const assert = require('assert');
 const routes = require('./routes/routes')
 
 const mongoose = require('mongoose');
@@ -15,6 +17,9 @@ const app = express();
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('views', './views');
 app.set('view engine', 'handlebars');
+
+// serve public files
+app.use(express.static('public'));
 
 //tell express to use the bodyParser middleware to parse form data
 app.use(bodyParser.json());

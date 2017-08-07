@@ -8,10 +8,10 @@ const Schema = mongoose.Schema;
 const collectionSchema = new Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  location: [{
-    city: { type: String, required: false },
-    state: { type: String, required: false },
-  }],
+  location: {
+    city: { type: String},
+    state: { type: String},
+  },
   soulStrength: { type: Number, required: true }
 
 });

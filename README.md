@@ -5,5 +5,5 @@
 ## Download
 
 ```
-Blah blah blah
+mongoimport --db collectionManager --collection collections --out collectionData.json
 ```
