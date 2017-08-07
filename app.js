@@ -23,7 +23,7 @@ app.use(express.static('public'));
 
 //tell express to use the bodyParser middleware to parse form data
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // use my routes
 app.use('/', routes);

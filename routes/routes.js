@@ -8,7 +8,9 @@ const Collection = require('../models/collection');
 
 
 routes.get('/', (req, res) => {
+
   Collection.find()
+
 
     .then(collections => res.render('listCollections', { collections: collections }))
     .then(() => console.log(req.body))
@@ -27,6 +29,18 @@ routes.get('/collectionForm', (req, res) => {
 });
 
 routes.post('/saveCollection', (req, res) => {
+
+  //   let collection = new Collection({
+  //   firstName: req.body.firstName,
+  //   lastName: req.body.lastName,
+  //   location: [
+  //     {
+  //       city: req.body.city,
+  //       state: req.body.state,
+  //     }
+  //   ],
+  //   soulStrength: req.body.soulStrength
+  // })
   if (req.body.id) {
       Collection.findByIdAndUpdate(req.body.id, req.body, { upsert: true })
 
